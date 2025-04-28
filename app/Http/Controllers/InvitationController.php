@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ProfilesEnum;
 use App\Http\Requests\InvitationStoreRequest;
 use App\Mail\UserInvitation;
 use App\Models\Invitation;
@@ -31,6 +32,7 @@ class InvitationController extends Controller
             return redirect()->route('invitations.index')
                 ->with('success', 'Convite enviado com sucesso!');
         } catch (\Exception $e) {
+//            dd($e->getMessage());
             return back()->with('error', $e->getMessage());
         }
     }

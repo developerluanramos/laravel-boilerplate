@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\ProfilesEnum;
+use Couchbase\Role;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class InvitationStoreRequest extends FormRequest
 {
@@ -23,7 +26,7 @@ class InvitationStoreRequest extends FormRequest
     {
         return [
             'email' => 'required|email|unique:users,email',
-            'role' => 'required|in:secretario,professor,auxiliar,superintendente',
+            'role' => ['required', Rule::enum(ProfilesEnum::class)],
         ];
     }
 }

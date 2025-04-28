@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\ProfilesEnum;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -21,7 +22,7 @@ class InvitationFactory extends Factory
         return [
             'email' => fake()->unique()->email,
             'token' => Str::uuid(),
-            'role' => fake()->randomElement(['professor', 'auxiliar', 'superintendente', 'secretario']),
+            'role' => fake()->randomElement(array_column(ProfilesEnum::cases(), 'value')),
             'expires_at' => Carbon::now()->addDay()
         ];
     }

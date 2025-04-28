@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('role', ['professor', 'secretario', 'auxiliar', 'superintendente'])->default('professor');
+            $table->enum('role', array_column(\App\Enums\ProfilesEnum::cases(), 'value'))->default(\App\Enums\ProfilesEnum::admin);
             $table->rememberToken();
             $table->timestamps();
         });

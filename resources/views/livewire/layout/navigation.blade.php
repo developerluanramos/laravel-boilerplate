@@ -18,8 +18,8 @@ new class extends Component
 
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
+    <div class="max-w-7xl mx-auto px-2 sm:px-2 lg:px-2">
+        <div class="flex justify-between h-12">
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
@@ -41,7 +41,7 @@ new class extends Component
                 <x-dropdown align="right" width="48" class="text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300">>
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                            <flux:avatar circle class="me-3" name="{{auth()->user()->name}}" initials:single />
+
 {{--                            <div x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>--}}
 
                             <div class="ms-1">
@@ -65,8 +65,8 @@ new class extends Component
                             </button>
                         </div>
 
-                        <x-dropdown-link :href="route('invitations.create')" wire:navigate>
-                            Convidar
+                        <x-dropdown-link :href="route('invitations.index')" wire:navigate>
+                            Convites
                         </x-dropdown-link>
 
                         <x-dropdown-link :href="route('profile')" wire:navigate>

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('email');
             $table->string('token')->unique();
-            $table->enum('role', ['secretario', 'professor', 'auxiliar', 'superintendente'])->default('professor');
+            $table->enum('role', array_column(\App\Enums\ProfilesEnum::cases(), 'value'))->default(\App\Enums\ProfilesEnum::visitante);
             $table->timestamp('expires_at');
             $table->timestamp('registered_at')->nullable();
             $table->timestamps();

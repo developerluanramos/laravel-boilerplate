@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\ProfilesEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -25,11 +26,11 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'email' => 'admin@codefirst.com.br',
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => Hash::make('secret'),
             'remember_token' => Str::random(10),
-            'role' => 'superintendente'
+            'role' => ProfilesEnum::admin
         ];
     }
 

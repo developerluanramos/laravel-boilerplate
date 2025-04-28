@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Enums\ProfilesEnum;
 use App\Models\Invitation;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -13,8 +14,10 @@ class InvitationObserver
      */
     public function creating(Invitation $invitation): void
     {
+//        dd(ProfilesEnum::getKey($invitation->role));
         $invitation->expires_at = Carbon::now()->addHours(24);
         $invitation->token = Str::uuid();
+//        $invitation->role = $invitation->role->value;
     }
 
     /**
