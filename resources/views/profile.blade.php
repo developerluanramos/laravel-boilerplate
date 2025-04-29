@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="mx-auto">
-        {{ Breadcrumbs::render('invitations') }}
+        {{ Breadcrumbs::render('profile') }}
     </div>
 
 

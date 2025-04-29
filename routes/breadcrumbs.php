@@ -8,12 +8,17 @@ use Diglactic\Breadcrumbs\Breadcrumbs;
 //  with `$trail`. This is nice for IDE type checking and completion.
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
-// Home
 Breadcrumbs::for('dashboard', function (BreadcrumbTrail $trail) {
     $trail->push('Dashboard', route('dashboard'));
 });
 
-// Home > Blog
+// Home > Profile
+Breadcrumbs::for('profile', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Perfil', route('profile'));
+});
+
+// -- invitations
 Breadcrumbs::for('invitations', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');
     $trail->push('Convites', route('invitations.index'));
@@ -22,9 +27,3 @@ Breadcrumbs::for('invitations.create', function (BreadcrumbTrail $trail) {
     $trail->parent('invitations');
     $trail->push('Novo convite');
 });
-
-// Home > Blog > [Category]
-//Breadcrumbs::for('category', function (BreadcrumbTrail $trail, $category) {
-//    $trail->parent('blog');
-//    $trail->push($category->title, route('category', $category));
-//});
