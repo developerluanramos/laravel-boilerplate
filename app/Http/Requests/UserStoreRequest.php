@@ -3,8 +3,10 @@
 namespace App\Http\Requests;
 
 use AllowDynamicProperties;
+use App\Enums\ProfilesEnum;
 use App\Models\Invitation;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 #[AllowDynamicProperties] class UserStoreRequest extends FormRequest
 {
@@ -41,7 +43,7 @@ use Illuminate\Foundation\Http\FormRequest;
                     }
                 }
             ],
-            'role' => 'required|in:secretario,professor,auxiliar,superintendente',
+            'role' => ['required', Rule::enum(ProfilesEnum::class)],
             'email' => [
                 'required',
                 'string',

@@ -13,6 +13,6 @@ class InvitationSeeder extends Seeder
      */
     public function run(): void
     {
-        Invitation::factory(10)->create();
+        Invitation::factory(3)->create();
     }
 }

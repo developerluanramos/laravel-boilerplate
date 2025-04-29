@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserCreateRequest;
+use App\Http\Requests\UserIndexRequest;
+use App\Http\Requests\UserShowRequest;
+use App\Http\Requests\UserEditRequest;
+use App\Http\Requests\UserUpdateRequest;
+use App\Http\Requests\UserDestroyRequest;
 use App\Http\Requests\UserStoreRequest;
 use App\Models\Invitation;
 use App\Models\User;
@@ -15,9 +20,9 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(UserIndexRequest $request)
     {
-        //
+        // Your logic here
     }
 
     /**
@@ -25,7 +30,6 @@ class UserController extends Controller
      */
     public function create(UserCreateRequest $request)
     {
-        // TODO lógica para controle de abertura da página a partir da validação do token
         if(is_null($request->get('token')))
         {
             abort(404);
@@ -64,7 +68,6 @@ class UserController extends Controller
             return redirect()->route('dashboard');
         } catch (\Exception $e) {
             DB::rollBack();
-//            dd($e->getMessage());
             return back()->with('error', $e->getMessage());
         }
     }
@@ -72,32 +75,58 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(UserShowRequest $request, User $user)
     {
-        //
+        // Your logic here
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit(UserEditRequest $request, User $user)
     {
-        //
+        // Your logic here
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(UserUpdateRequest $request, User $user)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            if ($request->filled('password')) {
+                $request->password = Hash::make($request->get('password'));
+            }
+
+            $user->update($request->all());
+
+            DB::commit();
+
+            return redirect()->route('users.show', $user);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', $e->getMessage());
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(UserDestroyRequest $request, User $user)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $user->delete();
+
+            DB::commit();
+
+            return redirect()->route('users.index');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', $e->getMessage());
+        }
     }
 }

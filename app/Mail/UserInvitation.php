@@ -24,6 +24,7 @@ class UserInvitation extends Mailable
     {
         return $this->subject('Convite para cadastro no Sistema de Frequência')
             ->markdown('emails.invitation', [
+                'token' => $this->invitation->token,
                 'registerUrl' => route('register', ['token' => $this->invitation->token]),
                 'expiresIn' => $this->invitation->expires_at->diffForHumans(),
             ]);
