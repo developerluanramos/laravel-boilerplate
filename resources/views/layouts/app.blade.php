@@ -217,6 +217,12 @@
                     </a>
                 </div>
                 <div class="px-4 py-3 hover:bg-gray-700 cursor-pointer transition-colors">
+                    <a href="{{route('users.index')}}" class="block flex items-center">
+                        <i class="fas fa-address-card w-5 mr-3 text-center"></i>
+                        Usuários
+                    </a>
+                </div>
+                <div class="px-4 py-3 hover:bg-gray-700 cursor-pointer transition-colors">
                     <a href="{{route('invitations.index')}}" class="block flex items-center">
                         <i class="fas fa-address-card w-5 mr-3 text-center"></i>
                         Convites

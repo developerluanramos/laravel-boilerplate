@@ -19,4 +19,13 @@ Route::get('/invitations/create', [\App\Http\Controllers\InvitationController::c
 Route::post('/invitations', [\App\Http\Controllers\InvitationController::class, 'store'])->name('invitations.store');
 Route::delete('/invitations/{id}', [\App\Http\Controllers\InvitationController::class, 'destroy'])->name('invitations.destroy');
 
+Route::get('/users', [\App\Http\Controllers\UserController::class, 'index'])->name('users.index');
+//Route::get('/users/create', [\App\Http\Controllers\UserController::class, 'create'])->name('users.create');
+Route::post('/users', [\App\Http\Controllers\UserController::class,'store'])->name('users.store');
+Route::get('/users/{id}', [\App\Http\Controllers\UserController::class,'show'])->name('users.show');
+Route::get('/users/{id}/edit', [\App\Http\Controllers\UserController::class, 'edit'])->name('users.edit');
+Route::put('/users/{id}', [\App\Http\Controllers\UserController::class, 'update'])->name('users.update');
+Route::delete('/users/{id}', [\App\Http\Controllers\UserController::class, 'destroy'])->name('users.destroy');
+
+
 require __DIR__.'/auth.php';
