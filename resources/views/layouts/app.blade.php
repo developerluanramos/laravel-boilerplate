@@ -218,7 +218,7 @@
                 </div>
                 <div class="px-4 py-3 hover:bg-gray-700 cursor-pointer transition-colors">
                     <a href="{{route('users.index')}}" class="block flex items-center">
-                        <i class="fas fa-address-card w-5 mr-3 text-center"></i>
+                        <i class="fa fa-users w-5 mr-3 text-center" aria-hidden="true"></i>
                         Usuários
                     </a>
                 </div>

@@ -1,15 +1,7 @@
 <!-- resources/views/invitations/index.blade.php -->
 <x-app-layout>
     <div class="mx-auto">
-        {{ Breadcrumbs::render('invitations') }}
-    </div>
-    <div class="mx-auto">
-        <a href="{{ route('invitations.create') }}" class="inline-flex">
-            <button class="mt-2 w-full text-center content-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 whitespace-nowrap">
-                <i class="fas fa-plus"></i>
-                <span>Novo Convite</span>
-            </button>
-        </a>
+        {{ Breadcrumbs::render('users') }}
     </div>
 
     <div class="mx-auto mt-2">

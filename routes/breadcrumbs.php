@@ -27,3 +27,9 @@ Breadcrumbs::for('invitations.create', function (BreadcrumbTrail $trail) {
     $trail->parent('invitations');
     $trail->push('Novo convite');
 });
+
+// -- users
+Breadcrumbs::for('users', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Usuários', route('users.index'));
+});
