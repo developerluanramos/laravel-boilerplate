@@ -12,8 +12,10 @@ use App\Http\Requests\UserStoreRequest;
 use App\Models\Invitation;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -61,7 +63,7 @@ class UserController extends Controller
             User::create($request->all());
 
             $invitation = Invitation::where('token', $request->get('token'))->first();
-            $invitation->markAsUsed();
+            $invitation->delete();
 
             DB::commit();
 
@@ -128,5 +130,15 @@ class UserController extends Controller
             DB::rollBack();
             return back()->with('error', $e->getMessage());
         }
+    }
+
+    public function logout()
+    {
+        Auth::guard('web')->logout();
+
+        Session::invalidate();
+        Session::regenerateToken();
+
+        return redirect()->route('portal');
     }
 }

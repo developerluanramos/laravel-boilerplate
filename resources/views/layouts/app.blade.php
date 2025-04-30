@@ -226,7 +226,7 @@
 
             <!-- Botão de Logout -->
             <div class="p-4 border-t border-gray-700 bg-gray-800">
-                <form method="POST" action="">
+                <form method="POST" action="{{route('auth.logout')}}">
                     @csrf
                     <button type="submit" class="w-full text-left px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center transition-colors rounded">
                         <i class="fas fa-sign-out-alt w-5 mr-3 text-center"></i>
