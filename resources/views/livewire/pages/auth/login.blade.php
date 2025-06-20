@@ -20,7 +20,12 @@ new #[Layout('layouts.guest')] class extends Component
 
         Session::regenerate();
 
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        if(\Illuminate\Support\Facades\Auth::user()->role === \App\Enums\ProfilesEnum::admin)
+        {
+            $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        } else {
+            $this->redirectIntended(default: route('portal', absolute: false), navigate: true);
+        }
     }
 }; ?>
 

@@ -4,9 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('portal');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
@@ -23,6 +21,14 @@ Route::get('/users', [\App\Http\Controllers\UserController::class, 'index'])->na
 Route::get('/users/{id}', [\App\Http\Controllers\UserController::class,'show'])->name('users.show');
 Route::put('/users/{id}/inactivate', [\App\Http\Controllers\UserController::class, 'inactivate'])->name('users.inactivate');
 Route::delete('/users/{id}', [\App\Http\Controllers\UserController::class, 'destroy'])->name('users.destroy');
+
+Route::group([], function () {});
+
+Route::group(['prefix' => ''], function () {
+    Route::view('dashboard', 'dashboard')
+        ->middleware(['auth', 'verified'])
+        ->name('dashboard');
+})->middleware(['auth', 'verified', 'admin']);
 
 
 require __DIR__.'/auth.php';

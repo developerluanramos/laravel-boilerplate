@@ -47,9 +47,8 @@
 
                         <!-- Ações -->
                         <div class="md:text-right lg:col-span-2 flex justify-end gap-2">
-                            <x-action-delete
-                                :route="route('users.destroy', ['id' => $user->id])"
-                                :identity="$user->id"></x-action-delete>
+                            <x-action-show :route="route('users.show', ['id' => $user->id])"></x-action-show>
+                            <x-action-delete :route="route('users.show', ['id' => $user->id])"></x-action-delete>
                         </div>
                     </div>
                 </div>

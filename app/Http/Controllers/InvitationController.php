@@ -27,14 +27,10 @@ class InvitationController extends Controller
     public function store(InvitationStoreRequest $request)
     {
         try {
-            $invitation = Invitation::create($request->all());
-
-            Mail::to($request->email)->send(new UserInvitation($invitation));
-
+            Invitation::create($request->all());
             return redirect()->route('invitations.index')
                 ->with('success', 'Convite enviado com sucesso!');
         } catch (\Exception $e) {
-//            dd($e->getMessage());
             return back()->with('error', $e->getMessage());
         }
     }
