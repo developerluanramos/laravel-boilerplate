@@ -1,27 +1,25 @@
 <x-portal-layout>
     <div class="container mx-auto px-4 py-8">
-{{--        <div class="sticky top-0 z-10 bg-white/80 backdrop-blur-md py-4 px-4 border-b border-gray-100">--}}
-            <div class="w-full mx-auto">
-                <div class="relative">
-                    <!-- Input -->
-                    <input
-                        type="text"
-                        placeholder="Criadores, posts ou categorias..."
-                        class="w-full pl-12 pr-5 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all duration-200 text-gray-700 placeholder-gray-400"
-                    >
+        <div class="w-full mx-auto">
+            <div class="relative">
+                <!-- Input -->
+                <input
+                    type="text"
+                    placeholder="Criadores, posts ou categorias..."
+                    class="w-full pl-12 pr-5 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 outline-none transition-all duration-200 text-gray-700 placeholder-gray-400"
+                >
 
-                    <!-- Ícone de busca (Phosphor) -->
-                    <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
-                        <i class="ph ph-magnifying-glass text-xl"></i>
-                    </div>
-
-                    <!-- Botão opcional (microfone) -->
-                    <button class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-purple-500 transition-colors">
-                        <i class="ph ph-microphone text-xl"></i>
-                    </button>
+                <!-- Ícone de busca (Phosphor) -->
+                <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                    <i class="ph ph-magnifying-glass text-xl"></i>
                 </div>
+
+                <!-- Botão opcional (microfone) -->
+                <button class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-purple-500 transition-colors">
+                    <i class="ph ph-microphone text-xl"></i>
+                </button>
             </div>
-{{--        </div>--}}
+        </div>
         <!-- Seção 1: Novos Criadores (Carrossel Horizontal) -->
         <section class="mb-12 mt-4">
             <div class="flex justify-between items-center mb-5">
@@ -41,7 +39,9 @@
                         <img src="{{$novo_criador->avatar_url}}" alt="Criador" class="w-full h-48 object-cover rounded-t-lg">
                         <div class="p-3">
                             <h3 class="font-semibold text-gray-800">{{$novo_criador->nickname}}</h3>
-                            <p class="text-sm text-gray-500">Fitness • {{$novo_criador->qtd_seguidores_formatado}} segs</p>
+                            <p class="text-sm text-gray-500">
+                                {{fake()->randomElement(['Artista', 'Model', 'Fotografa', 'Músico', 'Dançarino', 'Escritor', 'Programador'])}} • {{$novo_criador->qtd_seguidores_formatado}} segs
+                            </p>
                             <button class="mt-2 w-full bg-purple-600 text-white py-1 rounded-md hover:bg-purple-700 transition-colors">Seguir</button>
                         </div>
                     </div>
