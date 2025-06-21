@@ -65,7 +65,7 @@
                 <!-- Post 1 -->
                 @foreach($postagens_em_alta as $post_em_alta)
                     <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                        <img src="https://picsum.photos/400/300?random={{random_int(1,1000)}}" alt="Post" class="w-full h-48 object-cover">
+                        <img src="https://picsum.photos/400/300?random={{random_int(1,1000)}}" alt="Post" class="w-full h-48 object-cover filter blur-lg">
                         <div class="p-4">
                             <div class="flex items-center mb-2">
                                 <!-- Avatar corrigido (usando unavatar.io) -->

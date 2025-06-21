@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('avatar_url')->nullable();
             $table->integer('qtd_seguidores')->nullable();
+            $table->integer('qtd_assinantes')->default(0);
             $table->string('nickname')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

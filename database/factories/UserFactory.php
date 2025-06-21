@@ -33,7 +33,8 @@ class UserFactory extends Factory
             'password' => Hash::make('secret'),
             'remember_token' => Str::random(10),
             'role' => ProfilesEnum::admin,
-            'qtd_seguidores' => random_int(10, 10000000)
+            'qtd_seguidores' => random_int(10, 10000000),
+            'qtd_assinantes' => random_int(10, 10000000)
         ];
     }
 

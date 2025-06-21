@@ -26,7 +26,8 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'qtd_seguidores'
+        'qtd_seguidores',
+        'qtd_assinantes'
     ];
 
     /**
@@ -44,6 +45,9 @@ class User extends Authenticatable
         'avatar_url' => 'https://i.pravatar.cc/300?u=default',
     ];
 
+    // ------------------
+    // MODEL CONFIGURATIONS
+    // ------------------
     /**
      * Get the attributes that should be cast.
      *
@@ -67,6 +71,41 @@ class User extends Authenticatable
         });
     }
 
+    // ------------------
+    // DATABASE RELATIONS
+    // ------------------
+    public function seguidos()
+    {
+        return $this->belongsToMany(User::class, 'seguidores', 'seguidor_id', 'seguido_id')
+            ->withTimestamps();
+    }
+
+    // Relação de seguidores (quem me segue)
+    public function seguidores()
+    {
+        return $this->belongsToMany(User::class, 'seguidores', 'seguido_id', 'seguidor_id')
+            ->withTimestamps();
+    }
+
+    // Relação de assinaturas (criadores que EU assino)
+    public function assinados()
+    {
+        return $this->belongsToMany(User::class, 'assinaturas', 'assinante_id', 'assinado_id')
+            ->withPivot(['data_expiracao', 'ativa'])
+            ->withTimestamps();
+    }
+
+    // Relação de assinantes (quem assina MEU conteúdo)
+    public function assinantes()
+    {
+        return $this->belongsToMany(User::class, 'assinaturas', 'assinado_id', 'assinante_id')
+            ->withPivot(['data_expiracao', 'ativa'])
+            ->withTimestamps();
+    }
+
+    // ------------------
+    // ACCESSORS AND MUTATORS
+    // ------------------
     /**
      * Accessor para formatar qtd_seguidores
      */
@@ -83,5 +122,45 @@ class User extends Authenticatable
         }
 
         return (string) $seguidores;
+    }
+
+    /**
+     * Accessor para formatar qtd_assinantes
+     */
+    public function getQtdAssinantesFormatadoAttribute(): string
+    {
+        $assinantes = $this->qtd_assinantes;
+
+        if ($assinantes >= 1000000) {
+            return round($assinantes / 1000000, 1) . 'M';
+        }
+
+        if ($assinantes >= 1000) {
+            return round($assinantes / 1000, 1) . 'K';
+        }
+
+        return (string) $assinantes;
+    }
+
+    // Helper: Verifica se um usuário específico me segue
+    public function getSeguidoPorMimAttribute()
+    {
+        if (!auth()->check()) return false;
+
+        return $this->seguidores()
+            ->where('seguidor_id', auth()->id())
+            ->exists();
+    }
+
+    // Helper: Verifica se um usuário é assinante do meu conteúdo
+    public function getAssinadoPorMimAttribute()
+    {
+        if (!auth()->check()) return false;
+
+        return $this->assinantes()
+            ->where('assinante_id', auth()->id())
+            ->where('ativa', true)
+            ->where('data_expiracao', '>', now())
+            ->exists();
     }
 }

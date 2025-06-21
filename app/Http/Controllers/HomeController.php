@@ -24,6 +24,7 @@ class HomeController extends Controller
         $postagens_em_alta = Postagem::query()
             ->with('criador')
             ->limit(6)
+            ->orderBy('qtd_curtidas', 'desc')
             ->orderBy('created_at', 'desc')
             ->get();
 

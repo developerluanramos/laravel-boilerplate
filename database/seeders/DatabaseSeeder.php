@@ -23,7 +23,39 @@ class DatabaseSeeder extends Seeder
 
         User::factory(50)->create([
             'role' => ProfilesEnum::criador,
-        ]);
+        ])->each(function ($user) {
+            // Seguidores
+            $user->seguidores()->syncWithoutDetaching(
+                User::where('id', '!=', $user->id)
+                    ->inRandomOrder()
+                    ->limit(rand(0, 10))
+                    ->pluck('id')
+            );
+
+            // Criar 2 assinaturas ativas
+            $user->assinados()->syncWithoutDetaching(
+                User::where('id', '!=', $user->id)
+                    ->inRandomOrder()
+                    ->limit(2)
+                    ->pluck('id'),
+                [
+                    'data_expiracao' => now()->addMonth(),
+                    'ativa' => true
+                ]
+            );
+
+            // Assinaturas inativas (para testes)
+            $user->assinantes()->syncWithoutDetaching(
+                User::where('id', '!=', $user->id)
+                    ->inRandomOrder()
+                    ->limit(rand(0, 5))
+                    ->pluck('id'),
+                [
+                    'data_expiracao' => now()->subDays(rand(1, 30)),
+                    'ativa' => false
+                ]
+            );
+        });
 
         $this->call(
             [
