@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\ProfilesEnum;
 use App\Models\Invitation;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,11 +18,17 @@ class DatabaseSeeder extends Seeder
     {
         User::factory()->create([
             'name' => 'Admin',
+            'email' => 'admin@admin.com',
+        ]);
+
+        User::factory(50)->create([
+            'role' => ProfilesEnum::criador,
         ]);
 
         $this->call(
             [
-//                InvitationSeeder::class,
+                PostagemSeeder::class,
+                MidiaSeeder::class
             ]
         );
     }

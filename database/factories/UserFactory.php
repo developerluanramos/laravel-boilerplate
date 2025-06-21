@@ -26,12 +26,41 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'email' => 'admin@codefirst.com.br',
+            'email' => fake()->email(),
+            'nickname' => $this->generateNickname(),
+            'avatar_url' => $this->generateAvatarUrl(),
             'email_verified_at' => now(),
             'password' => Hash::make('secret'),
             'remember_token' => Str::random(10),
-            'role' => ProfilesEnum::admin
+            'role' => ProfilesEnum::admin,
+            'qtd_seguidores' => random_int(10, 10000000)
         ];
+    }
+
+    /**
+     * Gera um nickname único com @
+     */
+    private function generateNickname(): string
+    {
+        $username = fake()->userName(); // Gera algo como "johndoe123"
+        $nickname = '@' . Str::slug($username, ''); // Remove hífens e adiciona @
+
+        return Str::limit($nickname, 20, ''); // Limita o tamanho (opcional)
+    }
+
+    private function generateAvatarUrl(): string
+    {
+        $services = [
+            'https://i.pravatar.cc/300?u=',  // Pravatar
+//            'https://api.dicebear.com/7.x/identicon/svg?seed=',  // DiceBear
+//            'https://robohash.org/',  // Robohash
+//            'https://source.boringavatars.com/beam/120/'  // Boring Avatars
+        ];
+
+        $service = fake()->randomElement($services);
+        $uniqueId = fake()->unique()->word;
+
+        return $service . $uniqueId;
     }
 
     /**

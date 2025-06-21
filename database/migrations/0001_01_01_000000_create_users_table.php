@@ -14,10 +14,14 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('avatar_url')->nullable();
+            $table->integer('qtd_seguidores')->nullable();
+            $table->string('nickname')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('role', array_column(\App\Enums\ProfilesEnum::cases(), 'value'))->default(\App\Enums\ProfilesEnum::admin);
+            $table->enum('role', array_column(\App\Enums\ProfilesEnum::cases(), 'value'))
+                ->default(\App\Enums\ProfilesEnum::admin);
             $table->rememberToken();
             $table->timestamps();
         });

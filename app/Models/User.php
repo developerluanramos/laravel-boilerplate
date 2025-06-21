@@ -7,6 +7,7 @@ use App\Enums\ProfilesEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -20,9 +21,12 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'nickname',
+        'avatar_url',
         'email',
         'password',
-        'role'
+        'role',
+        'qtd_seguidores'
     ];
 
     /**
@@ -33,6 +37,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+    ];
+
+    // Opcional: Valor padrão
+    protected $attributes = [
+        'avatar_url' => 'https://i.pravatar.cc/300?u=default',
     ];
 
     /**
@@ -47,5 +56,32 @@ class User extends Authenticatable
             'password' => 'hashed',
             'role' => ProfilesEnum::class
         ];
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+            $user->nickname = Str::start($user->nickname, '@');
+        });
+    }
+
+    /**
+     * Accessor para formatar qtd_seguidores
+     */
+    public function getQtdSeguidoresFormatadoAttribute(): string
+    {
+        $seguidores = $this->qtd_seguidores;
+
+        if ($seguidores >= 1000000) {
+            return round($seguidores / 1000000, 1) . 'M';
+        }
+
+        if ($seguidores >= 1000) {
+            return round($seguidores / 1000, 1) . 'K';
+        }
+
+        return (string) $seguidores;
     }
 }
